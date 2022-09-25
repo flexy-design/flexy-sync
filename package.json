@@ -1,0 +1,39 @@
+{
+  "name": "flexy-sync",
+  "version": "1.0.0",
+  "description": "Provides the flexy-sync command.",
+  "scripts": {
+    "start": "npm run build && ([ -d test-e2e ] || mkdir test-e2e) && cd test-e2e && node ../bin/flexy-login",
+    "build": "rm -rf dist && tsc",
+    "release": "npm run build && release-it"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flexy-design/flexy-sync.git"
+  },
+  "keywords": [],
+  "author": "flexy-design",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flexy-design/flexy-sync/issues"
+  },
+  "homepage": "https://github.com/flexy-design/flexy-sync#readme",
+  "bin": {
+    "flexy-sync": "bin/flexy-sync.js"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "chalk": "^4.1.2",
+    "figma-api": "^1.10.1",
+    "inquirer": "^8.2.4",
+    "isomorphic-unfetch": "^3.1.0",
+    "nanoid": "^3.3.4",
+    "svgson": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.1",
+    "@types/node": "^18.7.20",
+    "@types/uuid": "^8.3.4",
+    "release-it": "^15.4.2"
+  }
+}

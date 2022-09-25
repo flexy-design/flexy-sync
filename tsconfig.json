@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "types": [],
+    "resolveJsonModule": true,
+    "declaration": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "outDir": "./dist",
+    "baseUrl": "./src"
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "bin"
+  ]
+}
