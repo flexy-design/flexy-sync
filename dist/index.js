@@ -220,9 +220,10 @@ export default ${componentName}UX;
             const targetCommonFolderPath = path_1.default.resolve(uiComponentFolderPath, 'common');
             // folder copy
             try {
-                (0, fs_extra_1.copySync)(originCommonFolderPath, targetCommonFolderPath, {
-                    overwrite: true
-                });
+                if (!(0, fs_1.existsSync)(targetCommonFolderPath))
+                    (0, fs_extra_1.copySync)(originCommonFolderPath, targetCommonFolderPath, {
+                        overwrite: true
+                    });
             }
             catch (e) { }
             console.log(chalk_1.default.greenBright(`[Flexy] [${componentName}.tsx] Sync is completed. ${uxComponentPath}`));

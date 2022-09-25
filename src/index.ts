@@ -284,9 +284,10 @@ export default ${componentName}UX;
 
       // folder copy
       try {
-        copySync(originCommonFolderPath, targetCommonFolderPath, {
-          overwrite: true
-        })
+        if (!existsSync(targetCommonFolderPath))
+          copySync(originCommonFolderPath, targetCommonFolderPath, {
+            overwrite: true
+          })
       } catch (e) {}
 
       console.log(
