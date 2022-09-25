@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Provides the flexy-sync command.",
   "scripts": {
-    "start": "npm run build && ([ -d test-e2e ] || mkdir test-e2e) && cd test-e2e && node ../bin/flexy-login",
+    "start": "npm run build && ([ -d test-e2e ] || mkdir test-e2e) && cd test-e2e && node ../bin/flexy-sync",
     "build": "rm -rf dist && tsc",
     "release": "npm run build && release-it"
   },
@@ -25,14 +25,19 @@
     "axios": "^0.27.2",
     "chalk": "^4.1.2",
     "figma-api": "^1.10.1",
+    "fs-extra": "^10.1.0",
     "inquirer": "^8.2.4",
     "isomorphic-unfetch": "^3.1.0",
     "nanoid": "^3.3.4",
-    "svgson": "^5.2.1"
+    "svgson": "^5.2.1",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
     "@types/inquirer": "^9.0.1",
     "@types/node": "^18.7.20",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
     "@types/uuid": "^8.3.4",
     "release-it": "^15.4.2"
   }

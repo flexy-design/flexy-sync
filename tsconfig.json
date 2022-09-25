@@ -1,9 +1,14 @@
 {
   "compilerOptions": {
     "target": "es2016",
-    "module": "commonjs",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "types": [],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "resolveJsonModule": true,
     "declaration": true,
     "allowJs": true,
@@ -11,12 +16,16 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
+    "isolatedModules": true,
     "outDir": "./dist",
-    "baseUrl": "./src"
+    "jsx": "react-jsx",
+    "rootDir": "./src",
   },
   "exclude": [
     "node_modules",
     "dist",
-    "bin"
+    "bin",
+    "test-e2e",
+    "common"
   ]
 }
