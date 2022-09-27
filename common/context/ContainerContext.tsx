@@ -23,6 +23,13 @@ import { CommonProvider } from './CommonContext'
 type RefType = HTMLDivElement | null
 type ProviderType = RefObject<HTMLElement> | null
 
+declare module 'react' {
+  interface StyleHTMLAttributes<T> extends React.HTMLAttributes<T> {
+    jsx?: boolean
+    global?: boolean
+  }
+}
+
 interface IContextProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   children: ReactNode
@@ -59,6 +66,7 @@ const ContainerProvider = (props: IContextProps) => {
   )
 
   const uniqueClassName = useUniqueClassName()
+  console.log('fitScale', fitScale, uniqueClassName)
 
   useEffect(() => {
     if (ref) setProviderValue(ref)
@@ -107,16 +115,11 @@ const ContainerProvider = (props: IContextProps) => {
         </div>
       </ContainerContext.Provider>
 
-      <style>
-        {overflow &&
-          `
-          [flexy-container] {
-            overflow: ${overflow};
-          }
-        `}
-        {typeof backgroundColor === 'string' &&
-          fitBackgroundColor !== null &&
-          `
+      <style jsx global={true}>
+        {`
+          ${(typeof backgroundColor === 'string' &&
+            fitBackgroundColor !== null &&
+            `
             body {
               background-color: ${
                 backgroundColor === 'auto'
@@ -124,29 +127,40 @@ const ContainerProvider = (props: IContextProps) => {
                   : backgroundColor
               };
             }
-          `}
-        {fitScale !== null &&
-          `.${uniqueClassName} {
+          `) ??
+          ``}
+          ${(overflow &&
+            `[flexy-container] {
+            overflow: ${overflow};
+          }`) ??
+          ``}
+          ${(fitScale !== null &&
+            `.${uniqueClassName} {
             transform: scale(${fitScale});
-          }`}
-        {borderColor &&
-          `.${uniqueClassName} > [flexy-container] {
+          }`) ??
+          ``}
+          ${(borderColor &&
+            `.${uniqueClassName} > [flexy-container] {
             border-left: 1px solid ${borderColor};
             border-right: 1px solid ${borderColor};
-          }`}
-
-        {`[flexy-list], [flexy-container] {
-          user-select: none;
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-        }
-        [flexy-list]::-webkit-scrollbar, [flexy-container]::-webkit-scrollbar {
-          display: none;
-          width: 0;
-        }
-        [flexy-list]::-webkit-scrollbar-button, [flexy-container]::-webkit-scrollbar-button {
-          display: none;
-        }`}
+          }`) ??
+          ``}
+          [flexy-list],
+          [flexy-container] {
+            user-select: none;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+          }
+          [flexy-list]::-webkit-scrollbar,
+          [flexy-container]::-webkit-scrollbar {
+            display: none;
+            width: 0;
+          }
+          [flexy-list]::-webkit-scrollbar-button,
+          [flexy-container]::-webkit-scrollbar-button {
+            display: none;
+          }
+        `}
       </style>
     </>
   )

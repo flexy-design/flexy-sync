@@ -380,10 +380,12 @@ export const round = (number: number, fractionDigits?: number) => {
 }
 
 export const useUniqueClassName = () => {
-  const [uniqueClassName] = useState(() => {
+  const [uniqueClassName, setUniqueClassName] = useState(``)
+
+  useEffect(() => {
     const random = Math.random().toString(36).substring(2, 9)
-    return `css-${random}`
-  })
+    setUniqueClassName(`css-${random}`)
+  }, [])
 
   return uniqueClassName
 }
