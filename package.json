@@ -1,6 +1,6 @@
 {
   "name": "flexy-sync",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Provides the flexy-sync command.",
   "scripts": {
     "start": "npm run build && ([ -d test-e2e ] || mkdir test-e2e) && cd test-e2e && node ../bin/flexy-sync",
