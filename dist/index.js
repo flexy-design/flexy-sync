@@ -40,7 +40,6 @@ const cache_1 = require("./utils/cache");
 const FigmaAPI = __importStar(require("figma-api"));
 const svg_1 = require("./utils/svg");
 const isomorphic_unfetch_1 = __importDefault(require("isomorphic-unfetch"));
-const fs_extra_1 = require("fs-extra");
 void (() => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c;
     const flexyConfigPath = path_1.default.resolve(process.cwd(), 'flexy.config.json');
@@ -197,7 +196,7 @@ void (() => __awaiter(void 0, void 0, void 0, function* () {
             const uxComponentPath = path_1.default.resolve(uxComponentFolderPath, `${componentName}UX.tsx`);
             const relativeComponentPath = path_1.default.relative(uxComponentFolderPath, uiComponentFolderPath);
             if (!(0, fs_1.existsSync)(uxComponentPath))
-                (0, fs_1.writeFileSync)(uxComponentPath, `import * as Flexy from "./${relativeComponentPath}/common/FlexyComponent";
+                (0, fs_1.writeFileSync)(uxComponentPath, `import * as Flexy from "@flexy-design/react";
 import * as designToken from "./${relativeComponentPath}/${componentName}";
 
 const ${componentName}UX = () => {
@@ -216,16 +215,6 @@ const ${componentName}UX = () => {
 
 export default ${componentName}UX;
 `);
-            const originCommonFolderPath = path_1.default.resolve(__dirname, '..', 'common');
-            const targetCommonFolderPath = path_1.default.resolve(uiComponentFolderPath, 'common');
-            // folder copy
-            try {
-                if (!(0, fs_1.existsSync)(targetCommonFolderPath))
-                    (0, fs_extra_1.copySync)(originCommonFolderPath, targetCommonFolderPath, {
-                        overwrite: true
-                    });
-            }
-            catch (e) { }
             console.log(chalk_1.default.greenBright(`[Flexy] [${componentName}.tsx] Sync is completed. ${uxComponentPath}`));
         }
         catch (e) {
