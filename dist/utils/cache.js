@@ -32,7 +32,7 @@ const getFigmaCache = ({ fileId, versionId }) => __awaiter(void 0, void 0, void 
 });
 exports.getFigmaCache = getFigmaCache;
 const getInlineSVGCache = ({ fileId, nodeId }) => __awaiter(void 0, void 0, void 0, function* () {
-    const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${nodeId.replace(';', '-').replace(':', '.')}.inlinesvg`);
+    const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${nodeId.replace(/[:;]/g, '-')}.inlinesvg`);
     if (!(0, fs_1.existsSync)(cachePath))
         return null;
     try {
@@ -46,7 +46,7 @@ const getInlineSVGCache = ({ fileId, nodeId }) => __awaiter(void 0, void 0, void
 });
 exports.getInlineSVGCache = getInlineSVGCache;
 const getSVGCache = ({ fileId, nodeId }) => __awaiter(void 0, void 0, void 0, function* () {
-    const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${nodeId.replace(';', '-').replace(':', '.')}.svgcode`);
+    const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${nodeId.replace(/[:;]/g, '-')}.svgcode`);
     if (!(0, fs_1.existsSync)(cachePath))
         return null;
     try {
@@ -90,7 +90,7 @@ exports.setFigmaCache = setFigmaCache;
 const setSVGCache = ({ fileId, nodeId, code }) => __awaiter(void 0, void 0, void 0, function* () {
     if (typeof code !== 'string')
         return false;
-    const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${nodeId.replace(';', '-').replace(':', '.')}.svgcode`);
+    const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${nodeId.replace(/[:;]/g, '-')}.svgcode`);
     if (!(0, fs_1.existsSync)(figmaCacheFolder)) {
         try {
             (0, fs_1.mkdirSync)(figmaCacheFolder, { recursive: true });
@@ -104,7 +104,7 @@ exports.setSVGCache = setSVGCache;
 const setInlineSVGCache = ({ fileId, nodeId, code }) => __awaiter(void 0, void 0, void 0, function* () {
     if (typeof code !== 'string')
         return false;
-    const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${nodeId.replace(';', '-').replace(':', '.')}.inlinesvg`);
+    const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${nodeId.replace(/[:;]/g, '-')}.inlinesvg`);
     if (!(0, fs_1.existsSync)(figmaCacheFolder)) {
         try {
             (0, fs_1.mkdirSync)(figmaCacheFolder, { recursive: true });
