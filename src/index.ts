@@ -9,7 +9,6 @@ import { getSVGCache, setSVGCache } from './utils/cache'
 import * as FigmaAPI from 'figma-api'
 import { convertSVGToUniqueId } from './utils/svg'
 import fetch from 'isomorphic-unfetch'
-import { copySync } from 'fs-extra'
 
 void (async () => {
   const flexyConfigPath = path.resolve(process.cwd(), 'flexy.config.json')
@@ -255,7 +254,7 @@ void (async () => {
       if (!existsSync(uxComponentPath))
         writeFileSync(
           uxComponentPath,
-          `import * as Flexy from "./${relativeComponentPath}/common/FlexyComponent";
+          `import * as Flexy from "@flexy-design/react";
 import * as designToken from "./${relativeComponentPath}/${componentName}";
 
 const ${componentName}UX = () => {
@@ -275,20 +274,6 @@ const ${componentName}UX = () => {
 export default ${componentName}UX;
 `
         )
-
-      const originCommonFolderPath = path.resolve(__dirname, '..', 'common')
-      const targetCommonFolderPath = path.resolve(
-        uiComponentFolderPath,
-        'common'
-      )
-
-      // folder copy
-      try {
-        if (!existsSync(targetCommonFolderPath))
-          copySync(originCommonFolderPath, targetCommonFolderPath, {
-            overwrite: true
-          })
-      } catch (e) {}
 
       console.log(
         chalk.greenBright(
