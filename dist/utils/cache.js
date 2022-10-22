@@ -16,13 +16,13 @@ exports.getFontCache = exports.getPretendardFont = exports.getImageFillUrlsCache
 const fs_1 = require("fs");
 const promises_1 = require("fs/promises");
 const path_1 = __importDefault(require("path"));
-const figmaCacheFolder = path_1.default.resolve(__dirname, "..", "..", ".figma-cache");
-const getFigmaCache = ({ fileId, versionId, }) => __awaiter(void 0, void 0, void 0, function* () {
+const figmaCacheFolder = path_1.default.resolve(__dirname, '..', '..', '.figma-cache');
+const getFigmaCache = ({ fileId, versionId }) => __awaiter(void 0, void 0, void 0, function* () {
     const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${versionId}.json`);
     if (!(0, fs_1.existsSync)(cachePath))
         return null;
     try {
-        const data = JSON.parse((0, fs_1.readFileSync)(cachePath, "utf-8"));
+        const data = JSON.parse((0, fs_1.readFileSync)(cachePath, 'utf-8'));
         if (!data)
             return null;
         return data;
@@ -31,13 +31,13 @@ const getFigmaCache = ({ fileId, versionId, }) => __awaiter(void 0, void 0, void
     return null;
 });
 exports.getFigmaCache = getFigmaCache;
-const getInlineSVGCache = ({ fileId, nodeId, }) => __awaiter(void 0, void 0, void 0, function* () {
-    const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${nodeId}.inlinesvg`);
+const getInlineSVGCache = ({ fileId, nodeId }) => __awaiter(void 0, void 0, void 0, function* () {
+    const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${nodeId.replace(';', '-').replace(':', '.')}.inlinesvg`);
     if (!(0, fs_1.existsSync)(cachePath))
         return null;
     try {
-        const data = JSON.parse((0, fs_1.readFileSync)(cachePath, "utf-8"));
-        if (typeof data !== "string")
+        const data = JSON.parse((0, fs_1.readFileSync)(cachePath, 'utf-8'));
+        if (typeof data !== 'string')
             return null;
         return data;
     }
@@ -45,13 +45,13 @@ const getInlineSVGCache = ({ fileId, nodeId, }) => __awaiter(void 0, void 0, voi
     return null;
 });
 exports.getInlineSVGCache = getInlineSVGCache;
-const getSVGCache = ({ fileId, nodeId, }) => __awaiter(void 0, void 0, void 0, function* () {
-    const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${nodeId}.svgcode`);
+const getSVGCache = ({ fileId, nodeId }) => __awaiter(void 0, void 0, void 0, function* () {
+    const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${nodeId.replace(';', '-').replace(':', '.')}.svgcode`);
     if (!(0, fs_1.existsSync)(cachePath))
         return null;
     try {
-        const data = JSON.parse((0, fs_1.readFileSync)(cachePath, "utf-8"));
-        if (typeof data !== "string")
+        const data = JSON.parse((0, fs_1.readFileSync)(cachePath, 'utf-8'));
+        if (typeof data !== 'string')
             return null;
         return data;
     }
@@ -73,7 +73,7 @@ const purgeCache = (fileId) => __awaiter(void 0, void 0, void 0, function* () {
     return true;
 });
 exports.purgeCache = purgeCache;
-const setFigmaCache = ({ fileId, versionId, data, }) => __awaiter(void 0, void 0, void 0, function* () {
+const setFigmaCache = ({ fileId, versionId, data }) => __awaiter(void 0, void 0, void 0, function* () {
     if (!data)
         return false;
     const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${versionId}.json`);
@@ -87,10 +87,10 @@ const setFigmaCache = ({ fileId, versionId, data, }) => __awaiter(void 0, void 0
     return true;
 });
 exports.setFigmaCache = setFigmaCache;
-const setSVGCache = ({ fileId, nodeId, code, }) => __awaiter(void 0, void 0, void 0, function* () {
-    if (typeof code !== "string")
+const setSVGCache = ({ fileId, nodeId, code }) => __awaiter(void 0, void 0, void 0, function* () {
+    if (typeof code !== 'string')
         return false;
-    const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${nodeId}.svgcode`);
+    const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${nodeId.replace(';', '-').replace(':', '.')}.svgcode`);
     if (!(0, fs_1.existsSync)(figmaCacheFolder)) {
         try {
             (0, fs_1.mkdirSync)(figmaCacheFolder, { recursive: true });
@@ -101,10 +101,10 @@ const setSVGCache = ({ fileId, nodeId, code, }) => __awaiter(void 0, void 0, voi
     return true;
 });
 exports.setSVGCache = setSVGCache;
-const setInlineSVGCache = ({ fileId, nodeId, code, }) => __awaiter(void 0, void 0, void 0, function* () {
-    if (typeof code !== "string")
+const setInlineSVGCache = ({ fileId, nodeId, code }) => __awaiter(void 0, void 0, void 0, function* () {
+    if (typeof code !== 'string')
         return false;
-    const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${nodeId}.inlinesvg`);
+    const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${nodeId.replace(';', '-').replace(':', '.')}.inlinesvg`);
     if (!(0, fs_1.existsSync)(figmaCacheFolder)) {
         try {
             (0, fs_1.mkdirSync)(figmaCacheFolder, { recursive: true });
@@ -115,7 +115,7 @@ const setInlineSVGCache = ({ fileId, nodeId, code, }) => __awaiter(void 0, void 
     return true;
 });
 exports.setInlineSVGCache = setInlineSVGCache;
-const setImageFillUrlsCache = ({ fileId, versionId, imageFillUrls, }) => __awaiter(void 0, void 0, void 0, function* () {
+const setImageFillUrlsCache = ({ fileId, versionId, imageFillUrls }) => __awaiter(void 0, void 0, void 0, function* () {
     const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${versionId}_images.json`);
     if (!(0, fs_1.existsSync)(figmaCacheFolder)) {
         try {
@@ -127,12 +127,12 @@ const setImageFillUrlsCache = ({ fileId, versionId, imageFillUrls, }) => __await
     return true;
 });
 exports.setImageFillUrlsCache = setImageFillUrlsCache;
-const getImageFillUrlsCache = ({ fileId, versionId, }) => __awaiter(void 0, void 0, void 0, function* () {
+const getImageFillUrlsCache = ({ fileId, versionId }) => __awaiter(void 0, void 0, void 0, function* () {
     const cachePath = path_1.default.resolve(figmaCacheFolder, `${fileId}_${versionId}_images.json`);
     if (!(0, fs_1.existsSync)(cachePath))
         return null;
     try {
-        const data = JSON.parse((0, fs_1.readFileSync)(cachePath, "utf-8"));
+        const data = JSON.parse((0, fs_1.readFileSync)(cachePath, 'utf-8'));
         if (!data)
             return null;
         return data;
@@ -217,20 +217,20 @@ http://scripts.sil.org/OFL
 exports.getPretendardFont = getPretendardFont;
 const getFontCache = ({ fontFamily }) => __awaiter(void 0, void 0, void 0, function* () {
     const appleLikeFonts = [
-        "Pretendard",
-        "SF Pro",
-        "SF Pro Text",
-        "SF Pro Display",
-        "SF Pro Rounded",
-        "SF Pro Icons",
-        "SF Compact Rounded",
-        "SF Compact Text",
-        "SF Compact Display",
-        "SF Compact Icons",
-        "SF Compact Rounded",
-        "SF Mono",
-        "SF Arabic",
-        "New York",
+        'Pretendard',
+        'SF Pro',
+        'SF Pro Text',
+        'SF Pro Display',
+        'SF Pro Rounded',
+        'SF Pro Icons',
+        'SF Compact Rounded',
+        'SF Compact Text',
+        'SF Compact Display',
+        'SF Compact Icons',
+        'SF Compact Rounded',
+        'SF Mono',
+        'SF Arabic',
+        'New York'
     ];
     if (!appleLikeFonts.includes(fontFamily))
         return null;
