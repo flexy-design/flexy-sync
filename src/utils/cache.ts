@@ -1,199 +1,199 @@
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "fs";
-import { readdir } from "fs/promises";
-import path from "path";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'fs'
+import { readdir } from 'fs/promises'
+import path from 'path'
 
-const figmaCacheFolder = path.resolve(__dirname, "..", "..", ".figma-cache");
+const figmaCacheFolder = path.resolve(__dirname, '..', '..', '.figma-cache')
 
 export const getFigmaCache = async ({
   fileId,
-  versionId,
+  versionId
 }: {
-  fileId: string;
-  versionId: string;
+  fileId: string
+  versionId: string
 }) => {
   const cachePath = path.resolve(
     figmaCacheFolder,
     `${fileId}_${versionId}.json`
-  );
-  if (!existsSync(cachePath)) return null;
+  )
+  if (!existsSync(cachePath)) return null
 
   try {
-    const data = JSON.parse(readFileSync(cachePath, "utf-8"));
-    if (!data) return null;
-    return data;
+    const data = JSON.parse(readFileSync(cachePath, 'utf-8'))
+    if (!data) return null
+    return data
   } catch (e) {}
 
-  return null;
-};
+  return null
+}
 
 export const getInlineSVGCache = async ({
   fileId,
-  nodeId,
+  nodeId
 }: {
-  fileId: string;
-  nodeId: string;
+  fileId: string
+  nodeId: string
 }) => {
   const cachePath = path.resolve(
     figmaCacheFolder,
-    `${fileId}_${nodeId}.inlinesvg`
-  );
-  if (!existsSync(cachePath)) return null;
+    `${fileId}_${nodeId.replace(';', '-').replace(':', '.')}.inlinesvg`
+  )
+  if (!existsSync(cachePath)) return null
 
   try {
-    const data = JSON.parse(readFileSync(cachePath, "utf-8"));
-    if (typeof data !== "string") return null;
-    return data;
+    const data = JSON.parse(readFileSync(cachePath, 'utf-8'))
+    if (typeof data !== 'string') return null
+    return data
   } catch (e) {}
 
-  return null;
-};
+  return null
+}
 
 export const getSVGCache = async ({
   fileId,
-  nodeId,
+  nodeId
 }: {
-  fileId: string;
-  nodeId: string;
+  fileId: string
+  nodeId: string
 }) => {
   const cachePath = path.resolve(
     figmaCacheFolder,
-    `${fileId}_${nodeId}.svgcode`
-  );
-  if (!existsSync(cachePath)) return null;
+    `${fileId}_${nodeId.replace(';', '-').replace(':', '.')}.svgcode`
+  )
+  if (!existsSync(cachePath)) return null
 
   try {
-    const data = JSON.parse(readFileSync(cachePath, "utf-8"));
-    if (typeof data !== "string") return null;
-    return data;
+    const data = JSON.parse(readFileSync(cachePath, 'utf-8'))
+    if (typeof data !== 'string') return null
+    return data
   } catch (e) {}
 
-  return null;
-};
+  return null
+}
 
 export const purgeCache = async (fileId: string) => {
-  if (!existsSync(figmaCacheFolder)) return false;
-  const files = await readdir(figmaCacheFolder);
+  if (!existsSync(figmaCacheFolder)) return false
+  const files = await readdir(figmaCacheFolder)
   for (const file of files) {
     if (file.startsWith(fileId)) {
-      const cacheFilePath = path.resolve(figmaCacheFolder, file);
-      if (existsSync(cacheFilePath)) rmSync(cacheFilePath);
+      const cacheFilePath = path.resolve(figmaCacheFolder, file)
+      if (existsSync(cacheFilePath)) rmSync(cacheFilePath)
     }
   }
-  return true;
-};
+  return true
+}
 
 export const setFigmaCache = async ({
   fileId,
   versionId,
-  data,
+  data
 }: {
-  fileId: string;
-  versionId: string;
-  data: any;
+  fileId: string
+  versionId: string
+  data: any
 }) => {
-  if (!data) return false;
+  if (!data) return false
   const cachePath = path.resolve(
     figmaCacheFolder,
     `${fileId}_${versionId}.json`
-  );
+  )
   if (!existsSync(figmaCacheFolder)) {
     try {
-      mkdirSync(figmaCacheFolder, { recursive: true });
+      mkdirSync(figmaCacheFolder, { recursive: true })
     } catch (e) {}
   }
-  writeFileSync(cachePath, JSON.stringify(data, null, 2));
-  return true;
-};
+  writeFileSync(cachePath, JSON.stringify(data, null, 2))
+  return true
+}
 
 export const setSVGCache = async ({
   fileId,
   nodeId,
-  code,
+  code
 }: {
-  fileId: string;
-  nodeId: string;
-  code: string;
+  fileId: string
+  nodeId: string
+  code: string
 }) => {
-  if (typeof code !== "string") return false;
+  if (typeof code !== 'string') return false
   const cachePath = path.resolve(
     figmaCacheFolder,
-    `${fileId}_${nodeId}.svgcode`
-  );
+    `${fileId}_${nodeId.replace(';', '-').replace(':', '.')}.svgcode`
+  )
   if (!existsSync(figmaCacheFolder)) {
     try {
-      mkdirSync(figmaCacheFolder, { recursive: true });
+      mkdirSync(figmaCacheFolder, { recursive: true })
     } catch (e) {}
   }
-  writeFileSync(cachePath, JSON.stringify(code, null, 2));
-  return true;
-};
+  writeFileSync(cachePath, JSON.stringify(code, null, 2))
+  return true
+}
 
 export const setInlineSVGCache = async ({
   fileId,
   nodeId,
-  code,
+  code
 }: {
-  fileId: string;
-  nodeId: string;
-  code: string;
+  fileId: string
+  nodeId: string
+  code: string
 }) => {
-  if (typeof code !== "string") return false;
+  if (typeof code !== 'string') return false
   const cachePath = path.resolve(
     figmaCacheFolder,
-    `${fileId}_${nodeId}.inlinesvg`
-  );
+    `${fileId}_${nodeId.replace(';', '-').replace(':', '.')}.inlinesvg`
+  )
   if (!existsSync(figmaCacheFolder)) {
     try {
-      mkdirSync(figmaCacheFolder, { recursive: true });
+      mkdirSync(figmaCacheFolder, { recursive: true })
     } catch (e) {}
   }
-  writeFileSync(cachePath, JSON.stringify(code, null, 2));
-  return true;
-};
+  writeFileSync(cachePath, JSON.stringify(code, null, 2))
+  return true
+}
 
 export const setImageFillUrlsCache = async ({
   fileId,
   versionId,
-  imageFillUrls,
+  imageFillUrls
 }: {
-  fileId: string;
-  versionId: string;
-  imageFillUrls: any;
+  fileId: string
+  versionId: string
+  imageFillUrls: any
 }) => {
   const cachePath = path.resolve(
     figmaCacheFolder,
     `${fileId}_${versionId}_images.json`
-  );
+  )
   if (!existsSync(figmaCacheFolder)) {
     try {
-      mkdirSync(figmaCacheFolder, { recursive: true });
+      mkdirSync(figmaCacheFolder, { recursive: true })
     } catch (e) {}
   }
-  writeFileSync(cachePath, JSON.stringify(imageFillUrls, null, 2));
-  return true;
-};
+  writeFileSync(cachePath, JSON.stringify(imageFillUrls, null, 2))
+  return true
+}
 
 export const getImageFillUrlsCache = async ({
   fileId,
-  versionId,
+  versionId
 }: {
-  fileId: string;
-  versionId: string;
+  fileId: string
+  versionId: string
 }) => {
   const cachePath = path.resolve(
     figmaCacheFolder,
     `${fileId}_${versionId}_images.json`
-  );
-  if (!existsSync(cachePath)) return null;
+  )
+  if (!existsSync(cachePath)) return null
 
   try {
-    const data = JSON.parse(readFileSync(cachePath, "utf-8"));
-    if (!data) return null;
-    return data;
+    const data = JSON.parse(readFileSync(cachePath, 'utf-8'))
+    if (!data) return null
+    return data
   } catch (e) {}
 
-  return null;
-};
+  return null
+}
 
 export const getPretendardFont = ({ fontFamily }: { fontFamily: string }) => {
   return `/*
@@ -266,27 +266,27 @@ http://scripts.sil.org/OFL
 	font-weight: 100;
 	font-display: swap;
 	src: local('Pretendard Thin'), url('https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.5/static/woff2/Pretendard-Thin.woff2') format('woff2'), url('https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.5/static/woff/Pretendard-Thin.woff') format('woff');
-}`;
-};
+}`
+}
 
 export const getFontCache = async ({ fontFamily }: { fontFamily: string }) => {
   const appleLikeFonts = [
-    "Pretendard",
-    "SF Pro",
-    "SF Pro Text",
-    "SF Pro Display",
-    "SF Pro Rounded",
-    "SF Pro Icons",
-    "SF Compact Rounded",
-    "SF Compact Text",
-    "SF Compact Display",
-    "SF Compact Icons",
-    "SF Compact Rounded",
-    "SF Mono",
-    "SF Arabic",
-    "New York",
-  ];
+    'Pretendard',
+    'SF Pro',
+    'SF Pro Text',
+    'SF Pro Display',
+    'SF Pro Rounded',
+    'SF Pro Icons',
+    'SF Compact Rounded',
+    'SF Compact Text',
+    'SF Compact Display',
+    'SF Compact Icons',
+    'SF Compact Rounded',
+    'SF Mono',
+    'SF Arabic',
+    'New York'
+  ]
 
-  if (!appleLikeFonts.includes(fontFamily)) return null;
-  return getPretendardFont({ fontFamily: fontFamily });
-};
+  if (!appleLikeFonts.includes(fontFamily)) return null
+  return getPretendardFont({ fontFamily: fontFamily })
+}
