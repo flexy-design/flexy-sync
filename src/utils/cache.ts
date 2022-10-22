@@ -35,7 +35,7 @@ export const getInlineSVGCache = async ({
 }) => {
   const cachePath = path.resolve(
     figmaCacheFolder,
-    `${fileId}_${nodeId.replace(';', '-').replace(':', '.')}.inlinesvg`
+    `${fileId}_${nodeId.replace(/[:;]/g, '-')}.inlinesvg`
   )
   if (!existsSync(cachePath)) return null
 
@@ -57,7 +57,7 @@ export const getSVGCache = async ({
 }) => {
   const cachePath = path.resolve(
     figmaCacheFolder,
-    `${fileId}_${nodeId.replace(';', '-').replace(':', '.')}.svgcode`
+    `${fileId}_${nodeId.replace(/[:;]/g, '-')}.svgcode`
   )
   if (!existsSync(cachePath)) return null
 
@@ -117,7 +117,7 @@ export const setSVGCache = async ({
   if (typeof code !== 'string') return false
   const cachePath = path.resolve(
     figmaCacheFolder,
-    `${fileId}_${nodeId.replace(';', '-').replace(':', '.')}.svgcode`
+    `${fileId}_${nodeId.replace(/[:;]/g, '-')}.svgcode`
   )
   if (!existsSync(figmaCacheFolder)) {
     try {
@@ -140,7 +140,7 @@ export const setInlineSVGCache = async ({
   if (typeof code !== 'string') return false
   const cachePath = path.resolve(
     figmaCacheFolder,
-    `${fileId}_${nodeId.replace(';', '-').replace(':', '.')}.inlinesvg`
+    `${fileId}_${nodeId.replace(/[:;]/g, '-')}.inlinesvg`
   )
   if (!existsSync(figmaCacheFolder)) {
     try {
