@@ -196,7 +196,7 @@ void (() => __awaiter(void 0, void 0, void 0, function* () {
             const uxComponentPath = path_1.default.resolve(uxComponentFolderPath, `${componentName}UX.tsx`);
             const relativeComponentPath = path_1.default.relative(uxComponentFolderPath, uiComponentFolderPath);
             if (!(0, fs_1.existsSync)(uxComponentPath))
-                (0, fs_1.writeFileSync)(uxComponentPath, `import * as Flexy from "@flexy-design/react";
+                (0, fs_1.writeFileSync)(uxComponentPath, `import { Flexy } from "@flexy-design/react";
 import * as designToken from "./${relativeComponentPath}/${componentName}";
 
 const ${componentName}UX = () => {
