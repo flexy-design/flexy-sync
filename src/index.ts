@@ -254,7 +254,7 @@ void (async () => {
       if (!existsSync(uxComponentPath))
         writeFileSync(
           uxComponentPath,
-          `import * as Flexy from "@flexy-design/react";
+          `import { Flexy } from "@flexy-design/react";
 import * as designToken from "./${relativeComponentPath}/${componentName}";
 
 const ${componentName}UX = () => {
